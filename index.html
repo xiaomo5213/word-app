@@ -1,414 +1,406 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>自考英语专升本 · 带背单词</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自考英语专升本 · 带背单词</title>
+<style>
+  * { box-sizing: border-box; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; }
 
-    body {
-      background: #f3f6fc;
-      margin: 0;
-      padding: 24px 16px;
-      display: flex;
-      justify-content: center;
-    }
+  body {
+    background: #f3f6fc;
+    margin: 0;
+    padding: 24px 16px;
+    display: flex;
+    justify-content: center;
+  }
 
-    .app {
-      max-width: 1300px;
-      width: 100%;
-      background: white;
-      border-radius: 32px;
-      box-shadow: 0 20px 40px rgba(0, 20, 40, 0.08);
-      padding: 28px 30px 30px;
-    }
+  .app {
+    max-width: 1300px;
+    width: 100%;
+    background: white;
+    border-radius: 32px;
+    box-shadow: 0 20px 40px rgba(0, 20, 40, 0.08);
+    padding: 28px 30px 30px;
+  }
 
-    h1 {
-      font-size: 1.9rem;
-      font-weight: 600;
-      color: #0b2a4a;
-      margin-top: 0;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+  h1 {
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: #0b2a4a;
+    margin: 0 0 8px;
+  }
 
-    .subhead {
-      color: #4a627a;
-      margin-bottom: 24px;
-      font-size: 0.95rem;
-      border-left: 4px solid #2b7be4;
-      padding-left: 16px;
-      background: #eef5ff;
-      border-radius: 0 12px 12px 0;
-      line-height: 1.5;
-      padding: 10px 16px;
-    }
+  .subhead {
+    color: #4a627a;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    border-left: 4px solid #2b7be4;
+    padding: 10px 16px;
+    background: #eef5ff;
+    border-radius: 0 12px 12px 0;
+    line-height: 1.5;
+  }
 
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 16px 20px;
-      margin-bottom: 28px;
-      background: #f9fcff;
-      padding: 14px 18px;
-      border-radius: 60px;
-      border: 1px solid #d9e6f2;
-    }
+  /* ============ 简化后的工具栏 ============ */
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 22px;
+    padding: 0 4px 10px;
+    border-bottom: 1px solid #e5eef8;
+  }
 
-    .page-size-selector {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: white;
-      padding: 5px 10px 5px 18px;
-      border-radius: 40px;
-      border: 1px solid #c9d9eb;
-    }
+  .toolbar label {
+    font-size: 0.9rem;
+    color: #557091;
+    margin-right: 6px;
+  }
 
-    .page-size-selector label {
-      font-weight: 500;
-      color: #1f3a5f;
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
+  .toolbar select {
+    border: none;
+    background: transparent;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #0b2a4a;
+    padding: 4px 6px;
+    cursor: pointer;
+    outline: none;
+    border-bottom: 1.5px dashed #b9cde4;
+  }
 
-    .page-size-selector select {
-      padding: 8px 16px;
-      border-radius: 30px;
-      border: 1px solid #b8cee6;
-      background: #ffffff;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #0b2a4a;
-      cursor: pointer;
-      outline: none;
-    }
+  .toolbar select:hover { border-bottom-color: #2b7be4; }
 
-    .order-toggle {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: white;
-      padding: 5px 16px 5px 18px;
-      border-radius: 40px;
-      border: 1px solid #c9d9eb;
-    }
+  .order-btn {
+    border: none;
+    background: transparent;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #0b2a4a;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-bottom: 1.5px dashed #b9cde4;
+    transition: 0.15s;
+  }
 
-    .order-toggle span {
-      font-weight: 500;
-      color: #1f3a5f;
-      font-size: 0.9rem;
-    }
+  .order-btn:hover { color: #2b7be4; border-bottom-color: #2b7be4; }
 
-    .btn {
-      background: white;
-      border: 1px solid #b8cee6;
-      color: #1f3a5f;
-      padding: 8px 20px;
-      border-radius: 30px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: 0.15s;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
+  .stats {
+    margin-left: auto;
+    color: #557091;
+    font-size: 0.88rem;
+    white-space: nowrap;
+  }
 
-    .btn-primary {
-      background: #2b7be4;
-      border-color: #2b7be4;
-      color: white;
-    }
+  /* ============ 单词卡片 ============ */
+  .word-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 18px 0;
+  }
 
-    .btn-primary:hover {
-      background: #1a62c4;
-      border-color: #1a62c4;
-    }
+  .word-card {
+    display: grid;
+    grid-template-columns: 180px 1fr 300px 44px;
+    align-items: start;
+    background: #ffffff;
+    border-radius: 22px;
+    border: 1px solid #deeaf6;
+    padding: 14px 18px;
+    gap: 10px;
+    transition: 0.15s;
+  }
 
-    .btn-outline:hover {
-      background: #e6f0fd;
-      border-color: #2b7be4;
-    }
+  .word-card:hover {
+    border-color: #b4d0f0;
+    box-shadow: 0 4px 12px rgba(43, 123, 228, 0.08);
+  }
 
-    .btn:disabled {
-      opacity: 0.4;
-      pointer-events: none;
-    }
+  .word-en {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #0b2a4a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    flex-wrap: wrap;
+  }
 
-    .stats {
-      margin-left: auto;
-      color: #35648c;
-      font-size: 0.9rem;
-      font-weight: 500;
-      background: #e1edfb;
-      padding: 6px 16px;
-      border-radius: 40px;
-      white-space: nowrap;
-    }
+  .word-en:hover { color: #1a62c4; text-decoration: underline; }
 
-    .word-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin: 24px 0 18px;
-    }
+  .speaker-icon { font-size: 1rem; opacity: 0.55; }
+  .word-en:hover .speaker-icon { opacity: 1; }
 
+  .word-phonetic {
+    font-size: 0.85rem;
+    color: #607e9e;
+    font-weight: 400;
+    font-family: 'Courier New', monospace;
+  }
+
+  .word-meaning {
+    color: #25496d;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    padding-right: 12px;
+    border-right: 1px dashed #c8d9ed;
+  }
+
+  .word-example {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.82rem;
+    color: #7a8fa8;
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .dictation-area { display: flex; align-items: center; }
+
+  .dictation-input {
+    width: 100%;
+    max-width: 220px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    border: 1.5px solid #c2d6ed;
+    font-size: 0.98rem;
+    font-weight: 500;
+    color: #0b2a4a;
+    background: #fafdff;
+    outline: none;
+    letter-spacing: 0.3px;
+    transition: 0.15s;
+  }
+
+  .dictation-input:focus {
+    border-color: #2b7be4;
+    box-shadow: 0 0 0 3px rgba(43, 123, 228, 0.1);
+    background: #fff;
+  }
+
+  .dictation-input.correct {
+    border-color: #2e9e5b;
+    background: #e9f9ef;
+    color: #1c6d3e;
+    font-weight: 600;
+  }
+
+  .dictation-input.wrong {
+    border-color: #d84c4c;
+    background: #ffecec;
+    color: #b32b2b;
+    text-decoration: line-through 2px #d84c4c;
+  }
+
+  /* ============ 移除按钮 ============ */
+  .remove-btn {
+    align-self: center;
+    justify-self: center;
+    border: none;
+    background: transparent;
+    color: #b7c7d9;
+    font-size: 1.15rem;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.15s;
+  }
+
+  .remove-btn:hover {
+    background: #ffecec;
+    color: #d84c4c;
+  }
+
+  /* ============ 分页 ============ */
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid #e5eef8;
+  }
+
+  .page-btn {
+    background: white;
+    border: 1px solid #c2d6ed;
+    border-radius: 40px;
+    padding: 9px 26px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #1f3a5f;
+    cursor: pointer;
+    transition: 0.15s;
+  }
+
+  .page-btn:hover:not(:disabled) {
+    background: #e6f0fd;
+    border-color: #2b7be4;
+  }
+
+  .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  .page-indicator {
+    font-size: 0.95rem;
+    color: #25496d;
+    font-weight: 500;
+    background: #eef5ff;
+    padding: 8px 20px;
+    border-radius: 40px;
+  }
+
+  .empty-state, .loading-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #607e9e;
+    background: #f9fcff;
+    border-radius: 24px;
+    border: 1px dashed #b8cee6;
+  }
+
+  /* ============ 弹窗 ============ */
+  .modal-mask {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 30, 60, 0.45);
+    backdrop-filter: blur(3px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    padding: 20px;
+  }
+
+  .modal-mask.show { display: flex; }
+
+  .modal {
+    background: #fff;
+    max-width: 560px;
+    width: 100%;
+    max-height: 82vh;
+    overflow-y: auto;
+    border-radius: 24px;
+    padding: 26px 28px 20px;
+    box-shadow: 0 30px 60px rgba(0, 20, 50, 0.25);
+    position: relative;
+    animation: pop 0.2s ease-out;
+  }
+
+  @keyframes pop {
+    from { transform: scale(0.94); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    border: none;
+    background: #f1f5fa;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    color: #607e9e;
+    cursor: pointer;
+    transition: 0.15s;
+  }
+
+  .modal-close:hover { background: #e1eaf5; color: #0b2a4a; }
+
+  .modal-word {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0b2a4a;
+    margin: 0 0 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .modal-word .modal-speak {
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0.6;
+  }
+
+  .modal-word .modal-speak:hover { opacity: 1; }
+
+  .modal-phonetic {
+    color: #557091;
+    font-size: 0.95rem;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 16px;
+  }
+
+  .modal-section-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #2b7be4;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 18px 0 8px;
+  }
+
+  .modal-meaning {
+    font-size: 1rem;
+    color: #1f3a5f;
+    line-height: 1.7;
+  }
+
+  .modal-example {
+    font-size: 0.92rem;
+    color: #557091;
+    line-height: 1.65;
+    background: #f7fafd;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border-left: 3px solid #b4d0f0;
+  }
+
+  .modal-source {
+    margin-top: 22px;
+    padding-top: 14px;
+    border-top: 1px dashed #d9e6f2;
+    font-size: 0.78rem;
+    color: #8fa6bd;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 900px) {
     .word-card {
-      display: grid;
-      grid-template-columns: 150px 1fr 380px;
-      align-items: start;
-      background: #ffffff;
-      border-radius: 24px;
-      border: 1px solid #deeaf6;
-      box-shadow: 0 2px 8px rgba(0, 30, 60, 0.02);
-      padding: 14px 22px;
-      transition: 0.1s;
-      gap: 10px;
-    }
-
-    .word-card:hover {
-      border-color: #b4d0f0;
-      box-shadow: 0 4px 12px rgba(43, 123, 228, 0.08);
-    }
-
-    .word-en {
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: #0b2a4a;
-      display: flex;
-      align-items: center;
+      grid-template-columns: 1fr;
       gap: 8px;
-      cursor: pointer;
-      user-select: none;
-      flex-wrap: wrap;
     }
-
-    .word-en:hover {
-      color: #1a62c4;
-      text-decoration: underline;
-    }
-
-    .speaker-icon {
-      font-size: 1.1rem;
-      opacity: 0.6;
-      transition: 0.1s;
-    }
-
-    .word-en:hover .speaker-icon {
-      opacity: 1;
-    }
-
-    .word-phonetic {
-      font-size: 0.9rem;
-      color: #607e9e;
-      margin-left: 4px;
-      font-weight: 400;
-      font-family: 'Courier New', monospace;
-    }
-
-    .word-meaning {
-      color: #25496d;
-      font-size: 0.96rem;
-      line-height: 1.6;
-      padding-right: 12px;
-      border-right: 1px dashed #c8d9ed;
-    }
-
-    .word-example {
-      display: block;
-      margin-top: 6px;
-      font-size: 0.85rem;
-      color: #7a8fa8;
-      line-height: 1.5;
-      font-style: italic;
-    }
-
-    .dictation-area {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .dictation-input {
-      width: 150px;
-      padding: 10px 14px;
-      border-radius: 16px;
-      border: 1.5px solid #c2d6ed;
-      font-size: 1rem;
-      font-weight: 500;
-      color: #0b2a4a;
-      background: #fafdff;
-      outline: none;
-      transition: 0.1s;
-      letter-spacing: 0.3px;
-    }
-
-    .dictation-input:focus {
-      border-color: #2b7be4;
-      box-shadow: 0 0 0 3px rgba(43, 123, 228, 0.1);
-      background: white;
-    }
-
-    .dictation-input.correct {
-      border-color: #2e9e5b;
-      background: #e9f9ef;
-      color: #1c6d3e;
-      font-weight: 600;
-    }
-
-    .dictation-input.wrong {
-      border-color: #d84c4c;
-      background: #ffecec;
-      color: #b32b2b;
-      text-decoration: line-through 2px #d84c4c;
-    }
-
-    .dictation-input.wrong::placeholder {
-      text-decoration: none;
-      color: #b99a9a;
-    }
-
-    .pagination {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 24px;
-      padding: 8px 0 4px;
-      border-top: 1px solid #d9e6f2;
-    }
-
-    .page-btn {
-      background: white;
-      border: 1px solid #c2d6ed;
-      border-radius: 40px;
-      padding: 10px 28px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #1f3a5f;
-      cursor: pointer;
-      transition: 0.15s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .page-btn:hover:not(:disabled) {
-      background: #e6f0fd;
-      border-color: #2b7be4;
-      color: #0b2a4a;
-    }
-
-    .page-btn:disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-    }
-
-    .page-indicator {
-      font-size: 0.95rem;
-      color: #25496d;
-      font-weight: 500;
-      background: #eef5ff;
-      padding: 8px 22px;
-      border-radius: 40px;
-      letter-spacing: 0.3px;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 48px;
-      color: #607e9e;
-      background: #f9fcff;
-      border-radius: 28px;
-      border: 1px dashed #b8cee6;
-    }
-
-    .loading-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: #35648c;
-      font-size: 1.1rem;
-    }
-
-    .loading-state .spinner {
-      display: inline-block;
-      width: 32px;
-      height: 32px;
-      border: 4px solid #d9e6f2;
-      border-top-color: #2b7be4;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-bottom: 16px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    @media (max-width: 1000px) {
-      .word-card {
-        grid-template-columns: 120px 1fr 320px;
-        gap: 6px;
-        padding: 12px 14px;
-      }
-
-      .dictation-input {
-        width: 120px;
-      }
-    }
-
-    @media (max-width: 780px) {
-      .app {
-        padding: 18px;
-      }
-
-      .word-card {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-
-      .word-meaning {
-        border-right: none;
-        padding-right: 0;
-      }
-
-      .dictation-area {
-        justify-content: flex-start;
-      }
-
-      .toolbar {
-        border-radius: 24px;
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .stats {
-        margin-left: 0;
-        text-align: center;
-      }
-    }
-  </style>
+    .word-meaning { border-right: none; padding-right: 0; }
+    .remove-btn { position: absolute; top: 12px; right: 12px; }
+    .word-card { position: relative; }
+    .toolbar { gap: 14px; }
+    .stats { margin-left: 0; width: 100%; text-align: left; }
+  }
+</style>
 </head>
 <body>
+
 <div class="app">
   <h1>📘 自考英语专升本 · 带背单词</h1>
   <div class="subhead">
-    ⚡ 点击英文单词发音 · 在框内默写 · 一致显示绿色，不一致显示红色+删除线
+    ⚡ 点击单词听发音 & 查看释义 · 在框内默写 · 一致显示绿色，不一致显示红色+删除线 · 点 ✕ 移除已掌握的词
   </div>
 
   <div class="toolbar">
-    <div class="page-size-selector">
-      <label for="pageSizeSelect">每页单词</label>
+    <div>
+      <label for="pageSizeSelect">每页</label>
       <select id="pageSizeSelect">
         <option value="20">20</option>
         <option value="50" selected>50</option>
@@ -416,21 +408,16 @@
         <option value="80">80</option>
         <option value="100">100</option>
       </select>
+      <span style="margin-left:4px;color:#557091;font-size:0.9rem;">词</span>
     </div>
 
-    <div class="order-toggle">
-      <span>顺序</span>
-      <button id="orderBtn" class="btn btn-outline" data-order="sequential">正序</button>
-    </div>
+    <button id="orderBtn" class="order-btn">正序</button>
 
-    <div class="stats" id="statsDisplay">加载中…</div>
+    <span class="stats" id="statsDisplay">加载中…</span>
   </div>
 
   <div id="wordListContainer" class="word-list">
-    <div class="loading-state">
-      <div class="spinner"></div>
-      <div>正在加载单词数据…</div>
-    </div>
+    <div class="loading-state">正在加载单词数据…</div>
   </div>
 
   <div class="pagination">
@@ -440,254 +427,332 @@
   </div>
 </div>
 
+<!-- ============ 弹窗 ============ -->
+<div class="modal-mask" id="modalMask">
+  <div class="modal" id="modalBox">
+    <button class="modal-close" id="modalClose">✕</button>
+    <h2 class="modal-word" id="modalWord"></h2>
+    <div class="modal-phonetic" id="modalPhonetic"></div>
+
+    <div class="modal-section-title">释义</div>
+    <div class="modal-meaning" id="modalMeaning"></div>
+
+    <div class="modal-section-title" id="modalExampleTitle" style="display:none;">例句</div>
+    <div class="modal-example" id="modalExample" style="display:none;"></div>
+
+    <div class="modal-source">
+      内容部分来源于互联网：维基词典 (CC BY-SA 3.0)、GitHub 开源词典、WordNet、谷歌翻译、百度翻译、有道词典。
+    </div>
+  </div>
+</div>
+
 <script>
-  // ==================== 全局状态 ====================
-  let rawWords = [];          // 从 words.json 加载的原始数据
-  let currentPage = 1;
-  let pageSize = 50;
-  let isSequential = true;
-  let orderedWords = [];
+// ==================== 全局状态 ====================
+let rawWords = [];
+let currentPage = 1;
+let pageSize = 50;
+let isSequential = true;
+let orderedWords = [];
 
-  // DOM 元素
-  const wordListEl = document.getElementById('wordListContainer');
-  const pageSizeSelect = document.getElementById('pageSizeSelect');
-  const orderBtn = document.getElementById('orderBtn');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const pageIndicator = document.getElementById('pageIndicator');
-  const statsDisplay = document.getElementById('statsDisplay');
+// 已移除单词（英文小写去空格作为 key）
+const REMOVED_KEY = 'wordapp_removed_words';
+let removedSet = new Set();
 
-  // ========== 工具函数 ==========
-  function shuffleArray(arr) {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
+// DOM
+const wordListEl = document.getElementById('wordListContainer');
+const pageSizeSelect = document.getElementById('pageSizeSelect');
+const orderBtn = document.getElementById('orderBtn');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const pageIndicator = document.getElementById('pageIndicator');
+const statsDisplay = document.getElementById('statsDisplay');
+
+const modalMask = document.getElementById('modalMask');
+const modalClose = document.getElementById('modalClose');
+const modalWord = document.getElementById('modalWord');
+const modalPhonetic = document.getElementById('modalPhonetic');
+const modalMeaning = document.getElementById('modalMeaning');
+const modalExample = document.getElementById('modalExample');
+const modalExampleTitle = document.getElementById('modalExampleTitle');
+
+// ==================== 工具函数 ====================
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function escapeHtml(str) {
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function wordKey(en) { return (en || '').trim().toLowerCase(); }
+
+// 从 localStorage 读取已移除单词
+function loadRemoved() {
+  try {
+    const raw = localStorage.getItem(REMOVED_KEY);
+    if (raw) {
+      const arr = JSON.parse(raw);
+      removedSet = new Set(arr);
     }
-    return a;
+  } catch (e) {
+    console.warn('读取已移除单词失败', e);
+  }
+}
+
+function saveRemoved() {
+  try {
+    localStorage.setItem(REMOVED_KEY, JSON.stringify([...removedSet]));
+  } catch (e) {
+    console.warn('保存已移除单词失败', e);
+  }
+}
+
+// 重建顺序列表（自动过滤已移除单词）
+function rebuildOrderedWords() {
+  const visible = rawWords.filter(w => {
+    const en = w.en || w.英文 || '';
+    return !removedSet.has(wordKey(en));
+  });
+  orderedWords = isSequential ? visible : shuffleArray(visible);
+}
+
+function getPageWords() {
+  const start = (currentPage - 1) * pageSize;
+  return orderedWords.slice(start, start + pageSize);
+}
+
+function getTotalPages() {
+  return Math.ceil(orderedWords.length / pageSize) || 1;
+}
+
+function updatePagination() {
+  const totalPages = getTotalPages();
+  if (currentPage > totalPages) currentPage = totalPages;
+  if (currentPage < 1) currentPage = 1;
+
+  pageIndicator.textContent = `${currentPage} / ${totalPages}`;
+  prevBtn.disabled = currentPage <= 1;
+  nextBtn.disabled = currentPage >= totalPages;
+
+  if (orderedWords.length === 0) {
+    statsDisplay.textContent = '暂无单词（可能都被移除了）';
+    return;
+  }
+  const startIdx = (currentPage - 1) * pageSize + 1;
+  const endIdx = Math.min(currentPage * pageSize, orderedWords.length);
+  statsDisplay.textContent = `共 ${orderedWords.length} 词 · 第 ${currentPage}/${totalPages} 页 · 显示 ${startIdx}-${endIdx}`;
+}
+
+function speakWord(word) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(word);
+  u.lang = 'en-US';
+  u.rate = 0.9;
+  window.speechSynthesis.speak(u);
+}
+
+// ==================== 弹窗 ====================
+function openModal(word) {
+  const en = word.en || word.英文 || '';
+  const phonetic = word.phonetic || word.音标 || '';
+  const meaning = word.meaning || word.中文 || '';
+  const example = word.example || word.例句 || word.自考例句 || '';
+
+  modalWord.innerHTML = `${escapeHtml(en)} <span class="modal-speak" title="发音">🔊</span>`;
+  modalWord.querySelector('.modal-speak').addEventListener('click', () => speakWord(en));
+
+  modalPhonetic.textContent = phonetic;
+  modalMeaning.innerHTML = escapeHtml(meaning).replace(/<br\s*\/?>/gi, '<br>').replace(/\n/g, '<br>');
+
+  if (example) {
+    modalExampleTitle.style.display = 'block';
+    modalExample.style.display = 'block';
+    modalExample.textContent = example;
+  } else {
+    modalExampleTitle.style.display = 'none';
+    modalExample.style.display = 'none';
   }
 
-  function rebuildOrderedWords() {
-    if (isSequential) {
-      orderedWords = [...rawWords];
-    } else {
-      orderedWords = shuffleArray(rawWords);
-    }
-  }
+  modalMask.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
 
-  function getPageWords() {
-    const start = (currentPage - 1) * pageSize;
-    const end = Math.min(start + pageSize, orderedWords.length);
-    return orderedWords.slice(start, end);
-  }
+function closeModal() {
+  modalMask.classList.remove('show');
+  document.body.style.overflow = '';
+}
 
-  function getTotalPages() {
-    return Math.ceil(orderedWords.length / pageSize) || 1;
-  }
+modalClose.addEventListener('click', closeModal);
+modalMask.addEventListener('click', (e) => { if (e.target === modalMask) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-  function updatePagination() {
-    const totalPages = getTotalPages();
-    if (currentPage > totalPages) currentPage = totalPages;
-    if (currentPage < 1) currentPage = 1;
+// ==================== 渲染 ====================
+function renderPage() {
+  const pageWords = getPageWords();
 
-    pageIndicator.textContent = `${currentPage} / ${totalPages}`;
-    prevBtn.disabled = currentPage <= 1;
-    nextBtn.disabled = currentPage >= totalPages;
-
-    if (orderedWords.length === 0) {
-      statsDisplay.textContent = '暂无单词';
-      return;
-    }
-    const startIdx = (currentPage - 1) * pageSize + 1;
-    const endIdx = Math.min(currentPage * pageSize, orderedWords.length);
-    statsDisplay.textContent = `共 ${orderedWords.length} 个单词 · 第 ${currentPage} / ${totalPages} 页 · 显示 ${startIdx}-${endIdx}`;
-  }
-
-  function speakWord(word) {
-    if (!window.speechSynthesis) {
-      alert('您的浏览器不支持语音播放');
-      return;
-    }
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.9;
-    utterance.pitch = 1;
-    window.speechSynthesis.speak(utterance);
-  }
-
-  function escapeHtml(str) {
-    if (str == null) return '';
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
-  // ========== 渲染 ==========
-  function renderPage() {
-    const pageWords = getPageWords();
-    if (!pageWords.length) {
-      wordListEl.innerHTML = `<div class="empty-state">📭 没有单词可显示</div>`;
-      updatePagination();
-      return;
-    }
-
-    let html = '';
-    pageWords.forEach((word, idx) => {
-      // 兼容不同字段名（en/英文, meaning/中文, phonetic/音标, example/例句）
-      const en = word.en || word.英文 || '';
-      const phonetic = word.phonetic || word.音标 || '';
-      const meaning = word.meaning || word.中文 || '';
-      const example = word.example || word.例句 || word.自考例句 || '';
-
-      const safeEn = escapeHtml(en);
-      const safePhonetic = escapeHtml(phonetic);
-      // 把换行和 <br> 替换成空格，避免显示混乱
-      const safeMeaning = escapeHtml(meaning).replace(/<br\s*\/?>/gi, ' ').replace(/\n/g, ' ');
-      const safeExample = escapeHtml(example).replace(/<br\s*\/?>/gi, ' ').replace(/\n/g, ' ');
-
-      const inputId = `dict_${currentPage}_${idx}_${Math.random().toString(36).substr(2, 5)}`;
-
-      html += `
-        <div class="word-card" data-word="${safeEn}">
-          <div class="word-en" data-word="${safeEn}" title="点击发音">
-            <span class="word-text">${safeEn}</span>
-            <span class="speaker-icon">🔊</span>
-            ${safePhonetic ? `<span class="word-phonetic">${safePhonetic}</span>` : ''}
-          </div>
-          <div class="word-meaning">
-            ${safeMeaning}
-            ${safeExample ? `<span class="word-example">例：${safeExample}</span>` : ''}
-          </div>
-          <div class="dictation-area">
-            <input type="text" id="${inputId}" class="dictation-input" placeholder="默写..." autocomplete="off" spellcheck="false" data-expected="${safeEn}" />
-          </div>
-        </div>
-      `;
-    });
-
-    wordListEl.innerHTML = html;
-
-    // 发音事件
-    document.querySelectorAll('.word-en').forEach(el => {
-      el.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const word = el.dataset.word;
-        if (word) speakWord(word);
-      });
-    });
-
-    // 默写校验
-    document.querySelectorAll('.dictation-input').forEach(input => {
-      input.addEventListener('input', handleDictationInput);
-      updateInputStyle(input);
-    });
-
+  if (!pageWords.length) {
+    wordListEl.innerHTML = `<div class="empty-state">📭 没有单词可显示<br><small>（可能都被你移除了，或还没有数据）</small></div>`;
     updatePagination();
+    return;
   }
 
-  function handleDictationInput(e) {
-    updateInputStyle(e.target);
-  }
+  let html = '';
+  pageWords.forEach((word, idx) => {
+    const en = word.en || word.英文 || '';
+    const phonetic = word.phonetic || word.音标 || '';
+    const meaning = word.meaning || word.中文 || '';
+    const example = word.example || word.例句 || word.自考例句 || '';
 
-  function updateInputStyle(input) {
-    const expected = input.dataset.expected || '';
-    const value = input.value.trim();
-    input.classList.remove('correct', 'wrong');
-    if (value === '') return;
-    if (value.toLowerCase() === expected.toLowerCase()) {
-      input.classList.add('correct');
-    } else {
-      input.classList.add('wrong');
-    }
-  }
+    const safeEn = escapeHtml(en);
+    const safePhonetic = escapeHtml(phonetic);
+    const safeMeaning = escapeHtml(meaning).replace(/<br\s*\/?>/gi, ' ').replace(/\n/g, ' ');
+    const safeExample = escapeHtml(example).replace(/<br\s*\/?>/gi, ' ').replace(/\n/g, ' ');
 
-  // ========== 刷新 ==========
-  function refresh(keepPage = false) {
-    if (!keepPage) {
-      currentPage = 1;
-    } else {
-      const total = getTotalPages();
-      if (currentPage > total) currentPage = total;
-      if (currentPage < 1) currentPage = 1;
-    }
-    renderPage();
-  }
+    const inputId = `dict_${currentPage}_${idx}_${Math.random().toString(36).slice(2, 7)}`;
+    const dataIdx = idx;
 
-  function updateOrderButtonText() {
-    orderBtn.textContent = isSequential ? '正序' : '乱序';
-  }
-
-  // ========== 事件绑定 ==========
-  pageSizeSelect.addEventListener('change', (e) => {
-    pageSize = parseInt(e.target.value, 10);
-    const totalPages = Math.ceil(orderedWords.length / pageSize);
-    if (currentPage > totalPages) currentPage = totalPages || 1;
-    refresh(true);
-  });
-
-  orderBtn.addEventListener('click', () => {
-    isSequential = !isSequential;
-    updateOrderButtonText();
-    rebuildOrderedWords();
-    currentPage = 1;
-    refresh(false);
-  });
-
-  prevBtn.addEventListener('click', () => {
-    if (currentPage > 1) {
-      currentPage--;
-      renderPage();
-    }
-  });
-
-  nextBtn.addEventListener('click', () => {
-    const totalPages = getTotalPages();
-    if (currentPage < totalPages) {
-      currentPage++;
-      renderPage();
-    }
-  });
-
-  // ========== 加载 words.json ==========
-  async function loadWords() {
-    try {
-      // 加时间戳避免浏览器缓存旧数据
-      const res = await fetch('./data/words.json?v=' + Date.now());
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-
-      if (!Array.isArray(data)) {
-        throw new Error('JSON 格式错误，应为数组');
-      }
-
-      rawWords = data;
-      console.log(`✅ 成功加载 ${rawWords.length} 个单词`);
-
-      rebuildOrderedWords();
-      updateOrderButtonText();
-      refresh(false);
-    } catch (err) {
-      console.error('加载单词失败:', err);
-      wordListEl.innerHTML = `
-        <div class="empty-state">
-          ⚠️ 单词数据加载失败<br>
-          <small style="color:#b32b2b;">${escapeHtml(err.message)}</small><br><br>
-          请检查：<br>
-          1. <code>data/words.json</code> 是否存在<br>
-          2. 路径是否为 <code>./data/words.json</code><br>
-          3. 按 F12 打开控制台查看详细错误
+    html += `
+      <div class="word-card" data-idx="${dataIdx}">
+        <div class="word-en" data-word="${safeEn}" title="点击查看释义 / 右侧 🔊 发音">
+          <span>${safeEn}</span>
+          <span class="speaker-icon" data-speak="${safeEn}">🔊</span>
+          ${safePhonetic ? `<span class="word-phonetic">${safePhonetic}</span>` : ''}
         </div>
-      `;
-      statsDisplay.textContent = '加载失败';
-      pageIndicator.textContent = '- / -';
-    }
-  }
+        <div class="word-meaning">
+          ${safeMeaning}
+          ${safeExample ? `<span class="word-example">例：${safeExample}</span>` : ''}
+        </div>
+        <div class="dictation-area">
+          <input type="text" id="${inputId}" class="dictation-input" placeholder="默写..."
+                 autocomplete="off" spellcheck="false" data-expected="${safeEn}" />
+        </div>
+        <button class="remove-btn" data-remove="${safeEn}" title="移除这个单词">✕</button>
+      </div>
+    `;
+  });
 
-  // ========== 启动 ==========
-  loadWords();
+  wordListEl.innerHTML = html;
+
+  // 点击单词文本 → 弹窗
+  document.querySelectorAll('.word-en').forEach(el => {
+    el.addEventListener('click', (e) => {
+      // 如果点的是发音图标，优先发音
+      if (e.target.classList.contains('speaker-icon')) {
+        e.stopPropagation();
+        speakWord(e.target.dataset.speak);
+        return;
+      }
+      const en = el.dataset.word;
+      const w = pageWords.find(p => (p.en || p.英文) === en);
+      if (w) openModal(w);
+    });
+  });
+
+  // 默写校验
+  document.querySelectorAll('.dictation-input').forEach(input => {
+    input.addEventListener('input', () => {
+      const v = input.value.trim();
+      input.classList.remove('correct', 'wrong');
+      if (!v) return;
+      if (v.toLowerCase() === (input.dataset.expected || '').toLowerCase()) {
+        input.classList.add('correct');
+      } else {
+        input.classList.add('wrong');
+      }
+    });
+  });
+
+  // 移除按钮
+  document.querySelectorAll('.remove-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const en = btn.dataset.remove;
+      const key = wordKey(en);
+      if (!key) return;
+      if (!confirm(`确定移除 "${en}" 吗？\n（刷新后仍不会再显示，可在浏览器清除本地数据恢复）`)) return;
+      removedSet.add(key);
+      saveRemoved();
+      rebuildOrderedWords();
+      // 移除后若当前页超出范围，自动回退
+      if (currentPage > getTotalPages()) currentPage = getTotalPages();
+      renderPage();
+    });
+  });
+
+  updatePagination();
+}
+
+function refresh(keepPage = false) {
+  if (!keepPage) currentPage = 1;
+  else {
+    const t = getTotalPages();
+    if (currentPage > t) currentPage = t;
+    if (currentPage < 1) currentPage = 1;
+  }
+  renderPage();
+}
+
+function updateOrderButtonText() {
+  orderBtn.textContent = isSequential ? '正序' : '乱序';
+}
+
+// ==================== 事件 ====================
+pageSizeSelect.addEventListener('change', (e) => {
+  pageSize = parseInt(e.target.value, 10);
+  const t = Math.ceil(orderedWords.length / pageSize);
+  if (currentPage > t) currentPage = t || 1;
+  refresh(true);
+});
+
+orderBtn.addEventListener('click', () => {
+  isSequential = !isSequential;
+  updateOrderButtonText();
+  rebuildOrderedWords();
+  currentPage = 1;
+  refresh(false);
+});
+
+prevBtn.addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderPage(); } });
+nextBtn.addEventListener('click', () => {
+  if (currentPage < getTotalPages()) { currentPage++; renderPage(); }
+});
+
+// ==================== 加载数据 ====================
+async function loadWords() {
+  try {
+    const res = await fetch('./data/words.json?v=' + Date.now());
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (!Array.isArray(data)) throw new Error('JSON 格式错误，应为数组');
+    rawWords = data;
+    loadRemoved();
+    rebuildOrderedWords();
+    updateOrderButtonText();
+    refresh(false);
+    console.log(`✅ 加载 ${rawWords.length} 个单词，已移除 ${removedSet.size} 个`);
+  } catch (err) {
+    console.error(err);
+    wordListEl.innerHTML = `
+      <div class="empty-state">
+        ⚠️ 单词数据加载失败<br>
+        <small style="color:#b32b2b;">${escapeHtml(err.message)}</small><br><br>
+        请检查 <code>data/words.json</code> 是否存在。
+      </div>`;
+    statsDisplay.textContent = '加载失败';
+  }
+}
+
+loadWords();
 </script>
 </body>
 </html>
