@@ -14,7 +14,6 @@
     padding: 24px 16px;
     display: flex;
     justify-content: center;
-    /* 微信端防止下拉页面时整页弹动 */
     overscroll-behavior-y: contain;
   }
 
@@ -45,7 +44,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 24px;
+    gap: 18px;
     margin-bottom: 22px;
     padding: 0 4px 10px;
     border-bottom: 1px solid #e5eef8;
@@ -81,9 +80,28 @@
 
   .order-btn:hover { color: #2b7be4; border-bottom-color: #2b7be4; }
 
+  .buy-btn {
+    border: none;
+    background: linear-gradient(135deg, #ff8a3d, #ff5b3d);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 7px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.15s;
+    box-shadow: 0 4px 10px rgba(255, 100, 60, 0.3);
+    white-space: nowrap;
+  }
+
+  .buy-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(255, 100, 60, 0.4);
+  }
+
   .stats { margin-left: auto; color: #557091; font-size: 0.88rem; white-space: nowrap; }
 
-  /* ============ 单词卡片 (桌面端: 音标在单词下方) ============ */
+  /* ============ 单词卡片 ============ */
   .word-list { display: flex; flex-direction: column; gap: 14px; margin: 18px 0; }
 
   .word-card {
@@ -104,7 +122,7 @@
     box-shadow: 0 4px 12px rgba(43, 123, 228, 0.08);
   }
 
-  /* 桌面端：单词 + 音标 竖直排列 */
+  /* 桌面端: 单词+音标 竖直排列 */
   .word-en {
     display: flex;
     flex-direction: column;
@@ -114,7 +132,6 @@
     user-select: none;
   }
 
-  /* 第一行: 单词 + 发音按钮 */
   .word-en .en-line {
     display: flex;
     align-items: center;
@@ -131,7 +148,6 @@
   .speaker-icon { font-size: 1rem; opacity: 0.55; }
   .word-en:hover .speaker-icon { opacity: 1; }
 
-  /* 第二行: 音标 */
   .word-phonetic {
     font-size: 0.85rem;
     color: #607e9e;
@@ -213,7 +229,7 @@
 
   .remove-btn:hover { background: #ffecec; color: #d84c4c; }
 
-  /* ============ 分页 (桌面端) ============ */
+  /* ============ 分页 ============ */
   .pagination {
     display: flex;
     align-items: center;
@@ -257,7 +273,7 @@
     border: 1px dashed #b8cee6;
   }
 
-  /* ============ 弹窗 ============ */
+  /* ============ 词典弹窗 ============ */
   .modal-mask {
     position: fixed;
     inset: 0;
@@ -356,6 +372,86 @@
     line-height: 1.5;
   }
 
+  /* ============ 购买弹窗 ============ */
+  .purchase-mask {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 30, 60, 0.55);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+
+  .purchase-mask.show { display: flex; }
+
+  .purchase-box {
+    background: #fff;
+    max-width: 420px;
+    width: 100%;
+    border-radius: 24px;
+    padding: 24px 24px 20px;
+    box-shadow: 0 30px 60px rgba(0, 20, 50, 0.3);
+    position: relative;
+    text-align: center;
+    animation: purchasePop 0.25s ease-out;
+  }
+
+  @keyframes purchasePop {
+    from { transform: scale(0.92); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+  }
+
+  .purchase-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    border: none;
+    background: #f1f5fa;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    color: #607e9e;
+    cursor: pointer;
+    transition: 0.15s;
+  }
+
+  .purchase-close:hover { background: #e1eaf5; color: #0b2a4a; }
+
+  .purchase-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0b2a4a;
+    margin: 4px 0 8px;
+    line-height: 1.4;
+  }
+
+  .purchase-sub {
+    font-size: 0.88rem;
+    color: #557091;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .purchase-img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 16px;
+    border: 1px solid #e5eef8;
+    display: block;
+    margin: 0 auto 16px;
+  }
+
+  .purchase-tip {
+    font-size: 0.8rem;
+    color: #8fa6bd;
+    line-height: 1.5;
+  }
+
   /* ================= 移动端 & 微信端适配 ================= */
   @media (max-width: 780px) {
     body {
@@ -381,7 +477,7 @@
     }
 
     .toolbar {
-      gap: 12px;
+      gap: 10px;
       padding: 0 2px 8px;
       margin-bottom: 14px;
       font-size: 0.9rem;
@@ -392,9 +488,14 @@
     .order-btn,
     .stats { font-size: 0.88rem; }
 
+    .buy-btn {
+      font-size: 0.85rem;
+      padding: 6px 14px;
+    }
+
     .stats { margin-left: 0; width: 100%; text-align: left; order: 3; }
 
-    /* 手机端卡片: 单词 + 音标 在同一行 */
+    /* 手机端卡片 */
     .word-card {
       grid-template-columns: 1fr 44px;
       grid-template-areas:
@@ -407,7 +508,7 @@
 
     .word-en {
       grid-area: en;
-      flex-direction: row;      /* 手机端: 单词与音标 横排 */
+      flex-direction: row;
       flex-wrap: wrap;
       align-items: baseline;
       gap: 8px;
@@ -430,7 +531,7 @@
       max-width: 100%;
       width: 100%;
       padding: 12px 14px;
-      font-size: 1rem; /* 16px+ 防止 iOS 自动缩放 */
+      font-size: 1rem;
     }
 
     .remove-btn {
@@ -439,7 +540,7 @@
       justify-self: end;
     }
 
-    /* 手机端分页: 大按钮, 方便拇指 */
+    /* 手机端分页 */
     .pagination {
       gap: 10px;
       padding-top: 16px;
@@ -465,7 +566,7 @@
       border-radius: 16px;
     }
 
-    /* 弹窗: 底部抽屉式 */
+    /* 词典弹窗: 底部抽屉 */
     .modal-mask { padding: 0; align-items: flex-end; }
 
     .modal {
@@ -484,9 +585,17 @@
 
     .modal-word { font-size: 1.7rem; }
     .modal-close { top: 12px; right: 14px; }
+
+    /* 购买弹窗移动端 */
+    .purchase-mask { padding: 16px; align-items: center; }
+    .purchase-box {
+      max-width: 100%;
+      border-radius: 20px;
+      padding: 22px 18px 18px;
+    }
+    .purchase-img { max-width: 260px; }
   }
 
-  /* 极小屏 (iPhone SE 等) */
   @media (max-width: 380px) {
     .word-en .en-line { font-size: 1.1rem; }
     .word-phonetic { font-size: 0.78rem; }
@@ -518,6 +627,8 @@
 
     <button id="orderBtn" class="order-btn">正序</button>
 
+    <button id="buyBtn" class="buy-btn">📘 电子版下载</button>
+
     <span class="stats" id="statsDisplay">加载中…</span>
   </div>
 
@@ -532,7 +643,7 @@
   </div>
 </div>
 
-<!-- ============ 弹窗 ============ -->
+<!-- ============ 词典弹窗 ============ -->
 <div class="modal-mask" id="modalMask">
   <div class="modal" id="modalBox">
     <button class="modal-close" id="modalClose">✕</button>
@@ -547,6 +658,25 @@
 
     <div class="modal-source">
       内容部分来源于互联网：维基词典 (CC BY-SA 3.0)、GitHub 开源词典、WordNet、谷歌翻译、百度翻译、有道词典。
+    </div>
+  </div>
+</div>
+
+<!-- ============ 购买弹窗 ============ -->
+<div class="purchase-mask" id="purchaseMask">
+  <div class="purchase-box">
+    <button class="purchase-close" id="purchaseClose">✕</button>
+    <div class="purchase-title">📘 需要电子版？</div>
+    <div class="purchase-sub">
+      扫码在淘宝购买 · 一次购买 · <b>永久免费更新</b>
+    </div>
+    <img class="purchase-img" id="purchaseImg" src="./data/12.jpg" alt="淘宝购买二维码"
+         onerror="this.style.display='none'; document.getElementById('purchaseImgFallback').style.display='block';">
+    <div id="purchaseImgFallback" style="display:none; color:#b32b2b; font-size:0.85rem; margin: 8px 0 16px;">
+      ⚠️ 图片加载失败，请确认 data/12.jpg 是否已上传
+    </div>
+    <div class="purchase-tip">
+      关闭后 48 小时内不再自动提醒
     </div>
   </div>
 </div>
@@ -577,6 +707,15 @@ const modalPhonetic = document.getElementById('modalPhonetic');
 const modalMeaning = document.getElementById('modalMeaning');
 const modalExample = document.getElementById('modalExample');
 const modalExampleTitle = document.getElementById('modalExampleTitle');
+
+// 购买弹窗 DOM
+const purchaseMask = document.getElementById('purchaseMask');
+const purchaseClose = document.getElementById('purchaseClose');
+const buyBtn = document.getElementById('buyBtn');
+
+// 48 小时
+const PURCHASE_HIDE_UNTIL_KEY = 'wordapp_purchase_hide_until';
+const FORTY_EIGHT_HOURS = 48 * 60 * 60 * 1000;
 
 // ==================== 工具函数 ====================
 function shuffleArray(arr) {
@@ -647,14 +786,12 @@ function updatePagination() {
   statsDisplay.textContent = `共 ${orderedWords.length} 词 · 第 ${currentPage}/${totalPages} 页 · 显示 ${startIdx}-${endIdx}`;
 }
 
-// ==================== 发音 (兼容微信) ====================
-let _audioEl = null; // 复用 audio 元素，避免多次 new 引起 iOS 拒绝播放
+// ==================== 发音 ====================
+let _audioEl = null;
 
 function speakWord(word) {
   if (!word) return;
 
-  // 方式 1: 浏览器原生 SpeechSynthesis (桌面 Chrome / Edge / Safari 效果好)
-  // 微信内置浏览器 (X5/QQ Browser) 对 speechSynthesis 支持不稳定，可能静默失败
   const isWeChat = /micromessenger/i.test(navigator.userAgent);
   const isAndroid = /android/i.test(navigator.userAgent);
   const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
@@ -665,7 +802,6 @@ function speakWord(word) {
     return;
   }
 
-  // 其它情况先试 speechSynthesis，2 秒后若无声音回退
   if (window.speechSynthesis) {
     try {
       window.speechSynthesis.cancel();
@@ -680,7 +816,6 @@ function speakWord(word) {
 
       window.speechSynthesis.speak(u);
 
-      // iOS Safari 有时会静默失败, 1500ms 后如果还没 onstart 就走在线 TTS
       if (isIOS || isWeChat) {
         setTimeout(() => {
           if (!spoke) playOnlineTTS(word);
@@ -695,38 +830,59 @@ function speakWord(word) {
   playOnlineTTS(word);
 }
 
-// 在线 TTS (有道发音, 无需 key, 支持 https)
+// 在线 TTS 备选：有道 → 百度 → 系统 TTS
 function playOnlineTTS(word) {
-  try {
-    // 有道词典发音接口 (英式), 也可用 type=2 美式
-    const url = 'https://dict.youdao.com/dictvoice?audio=' +
-                encodeURIComponent(word) + '&type=2';
+  if (!word) return;
 
+  const sources = [
+    { url: `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(word)}&type=2`, name: '有道' },
+    { url: `https://fanyi.baidu.com/gettts?lan=en&text=${encodeURIComponent(word)}&spd=3&source=web`, name: '百度' }
+  ];
+
+  tryPlaySource(sources, 0);
+
+  function tryPlaySource(list, idx) {
+    if (idx >= list.length) {
+      console.warn('所有在线发音源均失败，回退到系统 TTS');
+      fallbackSystemTTS(word);
+      return;
+    }
+
+    const source = list[idx];
     if (!_audioEl) {
       _audioEl = new Audio();
       _audioEl.preload = 'auto';
     }
-    _audioEl.src = url;
+
+    _audioEl.onerror = null;
+    _audioEl.onerror = () => {
+      console.warn(`${source.name} 发音失败，尝试下一个源`);
+      tryPlaySource(list, idx + 1);
+    };
+
+    _audioEl.src = source.url;
     _audioEl.currentTime = 0;
+
     const p = _audioEl.play();
     if (p && p.catch) {
       p.catch(err => {
-        console.warn('在线发音播放失败:', err);
-        // 最后兜底: 用系统 TTS 再试一次
-        if (window.speechSynthesis) {
-          window.speechSynthesis.cancel();
-          const u = new SpeechSynthesisUtterance(word);
-          u.lang = 'en-US';
-          window.speechSynthesis.speak(u);
-        }
+        console.warn(`${source.name} play() 被拒绝:`, err.message);
+        tryPlaySource(list, idx + 1);
       });
     }
-  } catch (e) {
-    console.warn('playOnlineTTS 异常', e);
+  }
+
+  function fallbackSystemTTS(text) {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = 0.9;
+    window.speechSynthesis.speak(u);
   }
 }
 
-// ==================== 弹窗 ====================
+// ==================== 词典弹窗 ====================
 function openModal(word) {
   const en = word.en || word.英文 || '';
   const phonetic = word.phonetic || word.音标 || '';
@@ -759,7 +915,47 @@ function closeModal() {
 
 modalClose.addEventListener('click', closeModal);
 modalMask.addEventListener('click', (e) => { if (e.target === modalMask) closeModal(); });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modalMask.classList.contains('show')) closeModal();
+});
+
+// ==================== 购买弹窗 ====================
+function isPurchaseHidden() {
+  try {
+    const until = parseInt(localStorage.getItem(PURCHASE_HIDE_UNTIL_KEY) || '0', 10);
+    return Date.now() < until;
+  } catch (e) {
+    return false;
+  }
+}
+
+function hidePurchaseFor48h() {
+  try {
+    localStorage.setItem(PURCHASE_HIDE_UNTIL_KEY, String(Date.now() + FORTY_EIGHT_HOURS));
+  } catch (e) {}
+}
+
+function openPurchaseModal() {
+  purchaseMask.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePurchaseModal(manual = false) {
+  purchaseMask.classList.remove('show');
+  document.body.style.overflow = '';
+  if (manual) hidePurchaseFor48h();
+}
+
+buyBtn.addEventListener('click', openPurchaseModal);
+purchaseClose.addEventListener('click', () => closePurchaseModal(true));
+purchaseMask.addEventListener('click', (e) => {
+  if (e.target === purchaseMask) closePurchaseModal(true);
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && purchaseMask.classList.contains('show')) {
+    closePurchaseModal(true);
+  }
+});
 
 // ==================== 渲染 ====================
 function renderPage() {
@@ -810,7 +1006,6 @@ function renderPage() {
 
   wordListEl.innerHTML = html;
 
-  // 点击单词: 发音图标 → 只发音; 其它区域 → 弹窗
   document.querySelectorAll('.word-en').forEach(el => {
     el.addEventListener('click', (e) => {
       if (e.target.classList.contains('speaker-icon')) {
@@ -824,7 +1019,6 @@ function renderPage() {
     });
   });
 
-  // 默写校验
   document.querySelectorAll('.dictation-input').forEach(input => {
     input.addEventListener('input', () => {
       const v = input.value.trim();
@@ -838,7 +1032,6 @@ function renderPage() {
     });
   });
 
-  // 移除
   document.querySelectorAll('.remove-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -918,6 +1111,17 @@ async function loadWords() {
 }
 
 loadWords();
+
+// ==================== 首次自动弹出购买弹窗 ====================
+window.addEventListener('load', () => {
+  if (!isPurchaseHidden()) {
+    setTimeout(() => {
+      if (!modalMask.classList.contains('show')) {
+        openPurchaseModal();
+      }
+    }, 3000);
+  }
+});
 </script>
 </body>
 </html>
